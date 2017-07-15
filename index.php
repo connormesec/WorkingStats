@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -14,12 +9,11 @@ and open the template in the editor.
         /**
          * Parses html from a given url and grabs the data from specified tables on the page and
          * provides utilities for saving and loading the tables.
-         * @author in order of contribution Daniel Church, Connor Mesec
+         * @author In order of contribution Daniel Church, Connor Mesec
          * @copyright (c) 2017, Daniel Church <daniellchurch@fvcc.edu>, Connor Mesec <connormesec@gmail.com>
          * @license https://opensource.org/licenses/lgpl-license.php LGPL
          */
         class TableGrabber {
-            
             /**
              * Grabs the full html of a page.
              * @param string $url The url of the page you want to grab.
