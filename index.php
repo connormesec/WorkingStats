@@ -14,8 +14,8 @@ and open the template in the editor.
         /**
          * Parses html from a given url and grabs the data from specified tables on the page and
          * provides utilities for saving and loading the tables.
-         * @author Daniel Church, Connor Mesec
-         * @copyright (c) 2017, Daniel Church <daniellchurch@fvcc.edu>, Connor Mesec
+         * @author in order of contribution Daniel Church, Connor Mesec
+         * @copyright (c) 2017, Daniel Church <daniellchurch@fvcc.edu>, Connor Mesec <connormesec@gmail.com>
          * @license https://opensource.org/licenses/lgpl-license.php LGPL
          */
         class TableGrabber {
