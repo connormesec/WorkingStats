@@ -35,37 +35,37 @@
             $table6 = TableGrabber::parseTable("http://achahockey.org/stats/overview/team/514106?leagueid=1800&conferenceid=1151&divisionid=77500&site_id=2439&page=overview&web_page_id=103177&web_page_title=Stats&full_calendar=", "17 </h3>", "</table>", 10);
             
             // Save $table1 as table1.csv
-            TableGrabber::saveTable('stats17.csv', $table1);
-            TableGrabber::saveTable('stats17g.csv', $table1g);
-            TableGrabber::saveTable('roster17.csv', $table2);
-            TableGrabber::saveTable('winloss17.csv', $table3);
-            TableGrabber::saveTable('stats16.csv', $table4);
-            TableGrabber::saveTable('stats16g.csv', $table4g);
-            TableGrabber::saveTable('roster16.csv', $table5);
-            TableGrabber::saveTable('winloss16.csv', $table6);
+            TableGrabber::saveTable('datatables\\stats17.csv', $table1);
+            TableGrabber::saveTable('datatables\\stats17g.csv', $table1g);
+            TableGrabber::saveTable('datatables\\roster17.csv', $table2);
+            TableGrabber::saveTable('datatables\\winloss17.csv', $table3);
+            TableGrabber::saveTable('datatables\\stats16.csv', $table4);
+            TableGrabber::saveTable('datatables\\stats16g.csv', $table4g);
+            TableGrabber::saveTable('datatables\\roster16.csv', $table5);
+            TableGrabber::saveTable('datatables\\winloss16.csv', $table6);
             // Load & render $table1
 
             //Will go in 2017-18 stats page
-            $stats17 = TableGrabber::loadTable('stats17.csv');
+            $stats17 = TableGrabber::loadTable('datatables\\stats17.csv');
             TableGrabber::renderTable($stats17);
-            $stats17g = TableGrabber::loadTable('stats17g.csv');
+            $stats17g = TableGrabber::loadTable('datatables\\stats17g.csv');
             TableGrabber::renderTable($stats17g);
             //Will go in 2017-18 roster page
-            $roster17 = TableGrabber::loadTable('roster17.csv');
+            $roster17 = TableGrabber::loadTable('datatables\\roster17.csv');
             TableGrabber::renderTable($roster17);
             //Will go wherever a win/loss table is needed
-            $winloss17 = TableGrabber::loadTable('winloss17.csv');
+            $winloss17 = TableGrabber::loadTable('datatables\\winloss17.csv');
             TableGrabber::renderTable($winloss17);
             //Will go in 2016-17 stats page
-            $stats16 = TableGrabber::loadTable('stats16.csv');
+            $stats16 = TableGrabber::loadTable('datatables\\stats16.csv');
             TableGrabber::renderTable($stats16);
-            $stats16g = TableGrabber::loadTable('stats16g.csv');
+            $stats16g = TableGrabber::loadTable('datatables\\stats16g.csv');
             TableGrabber::renderTable($stats16g);
             //Will go in 2016-17 roster page
-            $roster16 = TableGrabber::loadTable('roster16.csv');
+            $roster16 = TableGrabber::loadTable('datatables\\roster16.csv');
             TableGrabber::renderTable($roster16);
             //Will go wherever a win/loss table is needed
-            $winloss16 = TableGrabber::loadTable('winloss16.csv');
+            $winloss16 = TableGrabber::loadTable('datatables\\winloss16.csv');
             TableGrabber::renderTable($winloss16);
         }
         
