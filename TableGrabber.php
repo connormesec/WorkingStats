@@ -57,24 +57,19 @@ class TableGrabber {
     * @param string $url The url to grab the html from.
     * @param string $startTag The start of the area to grab, as an html tag (use id's, etc to specify which).
     * @param string $endTag The end of t he area to grab, as an html tag.
+    * @param array linesToReplace Option values that can be passed in to be replaced with other values.  Use the format oldTag:newTag.
     * @return array The html of the given url.
     */
-   public static function grabPage(string $url, string $startTag = '', string $endTag = ''): string {
+   public static function grabPage(string $url, string $startTag = '', string $endTag = '', Array $linesToReplace = array()): string {
        $html = TableGrabber::grabFullPage($url);
 
        // Put it all on one line
        $page = trim(preg_replace('/\n/', '', $html));
-
-       // TODO: decide how to handle these
-       // Ideas: pass in array of values to skip
-       //$page = preg_replace('/<td class="text-right">\\s+\\d+\\s+<\/td>/', '<td class="text-right"></td>', $page);
-       //$page = preg_replace('/<th class="span2"><\/th>/', '<td>Boxscore</td>', $page);
-       //$page = preg_replace('/<td>Boxscore<\\/td>/', '<td></td>', $page);
-       //$page = preg_replace('/<th class="text-right" title="Game Number">#<\/th>/', '<th class="text-right" title="Game Number"></th>', $page);
-       $page = preg_replace('/<td class="text-right">\\s+\\d+\\s+<\/td>/', '<td class="text-right"></td>', $page);
-       $page = preg_replace('/<th class="span2"><\/th>/', '<th class="span2"> Boxscore </th>', $page);
-
-       $page = preg_replace('/<th class="text-right" title="Game Number">#<\/th>/', '<th class="text-right" title="Game Number"></th>', $page);
+       
+       foreach($linesToReplace as $line) {
+           $split = explode(":", $line);
+           $page = preg_replace($split[0], TableGrabber::prepTag($split[1]), $page);
+       }
 
        $list = array();
        if (!preg_match('/' . TableGrabber::prepTag($startTag) . '(.*?)' . TableGrabber::prepTag($endTag) . '/', $page, $list))
@@ -91,12 +86,13 @@ class TableGrabber {
     * @param string $url The url to grab parse.
     * @param string $startTag The start of the area to grab, as an html tag (use id's, etc to specify which).
     * @param string $endTag The end of t he area to grab, as an html tag.
+    * @param array linesToReplace Option values that can be passed in to be replaced with other values.  Use the format oldTag:newTag.
     * @param bool $mock If you're passing in mock html instead of a url for testing
     * @return string[] An array of all data one layer deep in html tags 
     */
-   public static function parseHTML(string $url, string $startTag = '', string $endTag = '', bool $mock = false): array {
+   public static function parseHTML(string $url, string $startTag = '', string $endTag = '', Array $linesToReplace = array(), bool $mock = false): array {
        if(!$mock)
-           $page = TableGrabber::grabPage ($url, $startTag, $endTag);
+           $page = TableGrabber::grabPage ($url, $startTag, $endTag, $linesToReplace);
        else
            $page = $url;
 
@@ -127,11 +123,12 @@ class TableGrabber {
     * @param string $startTag The start of the area to grab, as an html tag (use id's, etc to specify which).
     * @param string $endTag The end of t he area to grab, as an html tag.
     * @param int $rowWidth The width of a row of the table you're parsing
+    * @param array linesToReplace Option values that can be passed in to be replaced with other values.  Use the format oldTag:newTag.
     * @param bool $mock If you're passing in mock html instead of a url for testing
     * @return string[][] A 2d array of all data one layer deep in html tags 
     */
-   public static function parseTable(string $url, string $startTag, string $endTag, int $rowWidth, bool $mock = false): array {
-       $data = TableGrabber::parseHTML($url, $startTag, $endTag, $mock);
+   public static function parseTable(string $url, string $startTag, string $endTag, int $rowWidth, Array $linesToReplace = array(), bool $mock = false): array {
+       $data = TableGrabber::parseHTML($url, $startTag, $endTag, $linesToReplace, $mock);
 
        $out = array(array());
 

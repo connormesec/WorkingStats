@@ -7,6 +7,9 @@
     <body>
         <?php
         include('TableGrabber.php');
+        
+        // TODO: Clean all this up
+        
         // Examples
 
         //
@@ -17,8 +20,16 @@
         
         //TableGrabber::saveTable('datatables\\table1.csv', $table1);
         
-        $table2 = TableGrabber::parseTable("achahockey.org/stats/schedule/team/514106?leagueid=1800&conferenceid=1151&divisionid=77500&seasonid=16169&teamid=514106&site_id=2439&page=schedule&web_page_id=103177&web_page_title=Stats&full_calendar="
-                , '<table class="table table-striped table-bordered table-hover table-condensed table-stats">', '/table>', 9);
+        //$page = preg_replace('/<td class="text-right">\\s+\\d+\\s+<\/td>/', '<td class="text-right"></td>', $page);
+        //$page = preg_replace('/<th class="span2"><\/th>/', '<td>Boxscore</td>', $page);
+        //$page = preg_replace('/<td>Boxscore<\\/td>/', '<td></td>', $page);
+        //$page = preg_replace('/<th class="text-right" title="Game Number">#<\/th>/', '<th class="text-right" title="Game Number"></th>', $page);
+                
+        $table2 = TableGrabber::parseTable("achahockey.org/stats/schedule/team/514106?leagueid=1800&conferenceid=1151&divisionid=77500&seasonid=16169&teamid=514106&site_id=2439&page=schedule&web_page_id=103177&web_page_title=Stats&full_calendar=",
+                '<table class="table table-striped table-bordered table-hover table-condensed table-stats">', '/table>', 9,
+                array('/<td class="text-right">\\s+\\d+\\s+<\/td>/:<td class="text-right"></td>',
+                    '/<th class="span2"><\/th>/:<th class="span2"> Boxscore </th>',
+                    '/<th class="text-right" title="Game Number">#<\/th>/:<th class="text-right" title="Game Number"></th>'));
         
                 //$table2 = TableGrabber::parseTable("http://d15k3om16n459i.cloudfront.net/prostats/teamroster.html?teamid=514106&seasonid=16169", '<table width="98%" class="tablelines" cellpadding="2" border="0" cellspacing="1">', "</table>", 6);
 
